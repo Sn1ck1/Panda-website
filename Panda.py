@@ -1,9 +1,5 @@
-import time
 import numpy as np
-import matplotlib.pyplot as plt
 import pandas as pd
-import plotly.express as px
-import plotly.io
 import streamlit as st
 from streamlit_autorefresh import st_autorefresh
 
@@ -40,15 +36,18 @@ CH1 = pd.read_excel("dataxlsx.xlsm",
                    )
 
 
+Temp = np.mean(df['CH1'])
+Gas = np.mean(df['CH3'])
+Humidty = np.mean(df['CH2'])
 
 
 
 count = st_autorefresh(interval=1000, limit=100)
 
-col1, col2, col3 = st.columns(3)
-col1.metric("Temperature", "")
-col2.metric("Gas", " ")
-col3.metric("Humidity", " ")
+kpi1, kpi2, kpi3 = st.columns(3)
+kpi1.metric(label="Temperatur", value=round(Temp))
+kpi2.metric(label="Gas i luften", value=round(Gas))
+kpi3.metric(label="Luftfugtighed", value=round(Humidty))
 
 tab1, tab2 = st.tabs(["📈 Chart", "🗃 Data"])
 
