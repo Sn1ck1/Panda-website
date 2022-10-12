@@ -1,0 +1,90 @@
+<html>
+<head>
+<title>Panda.py</title>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<style type="text/css">
+.s0 { color: #ff79c6;}
+.s1 { color: #f8f8f2;}
+.s2 { color: #fff906;}
+.s3 { color: #f998cc;}
+.s4 { color: #f1fa8c;}
+.s5 { color: #98afff;}
+.s6 { color: #36ffac;}
+.s7 { color: #bd93f9;}
+</style>
+</head>
+<body bgcolor="#282a36">
+<table CELLSPACING=0 CELLPADDING=5 COLS=1 WIDTH="100%" BGCOLOR="#606060" >
+<tr><td><center>
+<font face="Arial, Helvetica" color="#000000">
+Panda.py</font>
+</center></td></tr></table>
+<pre><span class="s0">import </span><span class="s1">time</span>
+<span class="s0">import </span><span class="s1">numpy </span><span class="s0">as </span><span class="s1">np</span>
+<span class="s0">import </span><span class="s1">matplotlib.pyplot </span><span class="s0">as </span><span class="s1">plt</span>
+<span class="s0">import </span><span class="s1">pandas </span><span class="s0">as </span><span class="s1">pd</span>
+<span class="s0">import </span><span class="s1">plotly.express </span><span class="s0">as </span><span class="s1">px</span>
+<span class="s0">import </span><span class="s1">plotly.io</span>
+<span class="s0">import </span><span class="s1">streamlit </span><span class="s0">as </span><span class="s1">st</span>
+<span class="s0">from </span><span class="s1">streamlit_autorefresh </span><span class="s0">import </span><span class="s1">st_autorefresh</span>
+
+
+
+<span class="s1">st.set_page_config</span><span class="s2">(</span><span class="s1">page_title</span><span class="s3">=</span><span class="s4">&quot;Environment&quot;</span><span class="s1">,</span>
+                   <span class="s1">page_icon</span><span class="s3">=</span><span class="s4">&quot;:bar_chart:&quot;</span><span class="s1">,</span>
+                   <span class="s1">layout</span><span class="s3">=</span><span class="s4">&quot;wide&quot;</span><span class="s1">,</span>
+                   <span class="s2">)</span>
+
+
+
+<span class="s5">#&quot;C:/Users/Nikol/Onedrive/Dokumenter/dataxlsx.xlsx&quot;</span>
+<span class="s5">#&quot;C:\Users\Nikol\OneDrive\Dokumenter\dataxlsx.xlsx&quot;</span>
+
+
+
+
+<span class="s1">df </span><span class="s3">= </span><span class="s1">pd.read_excel</span><span class="s2">(</span><span class="s4">&quot;dataxlsx.xlsm&quot;</span><span class="s1">,</span>
+                   <span class="s1">sheet_name</span><span class="s3">=</span><span class="s4">'Data ind'</span><span class="s1">,</span>
+                   <span class="s1">parse_dates</span><span class="s3">=</span><span class="s6">[</span><span class="s7">0</span><span class="s6">]</span><span class="s1">,</span>
+                   <span class="s1">index_col</span><span class="s3">=</span><span class="s6">[</span><span class="s7">0</span><span class="s6">]</span><span class="s1">,</span>
+                   <span class="s1">header</span><span class="s3">=</span><span class="s7">6</span><span class="s1">,</span>
+                   <span class="s1">usecols</span><span class="s3">=</span><span class="s4">'A:D'</span><span class="s1">,</span>
+                   <span class="s1">nrows</span><span class="s3">=</span><span class="s7">100</span><span class="s1">,</span>
+                   <span class="s2">)</span>
+
+
+<span class="s1">CH1 </span><span class="s3">= </span><span class="s1">pd.read_excel</span><span class="s2">(</span><span class="s4">&quot;dataxlsx.xlsm&quot;</span><span class="s1">,</span>
+                   <span class="s1">sheet_name</span><span class="s3">=</span><span class="s4">'Data ind'</span><span class="s1">,</span>
+                   <span class="s1">header</span><span class="s3">=</span><span class="s7">3</span><span class="s1">,</span>
+                   <span class="s1">usecols</span><span class="s3">=</span><span class="s4">'B:B'</span><span class="s1">,</span>
+                   <span class="s1">nrows</span><span class="s3">=</span><span class="s7">1</span><span class="s1">,</span>
+                   <span class="s2">)</span>
+
+
+<span class="s1">Temp </span><span class="s3">= </span><span class="s1">np.mean</span><span class="s2">(</span><span class="s1">df</span><span class="s6">[</span><span class="s4">'CH1'</span><span class="s6">]</span><span class="s2">)</span>
+<span class="s1">Gas </span><span class="s3">= </span><span class="s1">np.mean</span><span class="s2">(</span><span class="s1">df</span><span class="s6">[</span><span class="s4">'CH3'</span><span class="s6">]</span><span class="s2">)</span>
+<span class="s1">Humidty </span><span class="s3">= </span><span class="s1">np.mean</span><span class="s2">(</span><span class="s1">df</span><span class="s6">[</span><span class="s4">'CH2'</span><span class="s6">]</span><span class="s2">)</span>
+
+
+
+<span class="s1">count </span><span class="s3">= </span><span class="s1">st_autorefresh</span><span class="s2">(</span><span class="s1">interval</span><span class="s3">=</span><span class="s7">1000</span><span class="s1">, limit</span><span class="s3">=</span><span class="s7">100</span><span class="s2">)</span>
+
+<span class="s1">kpi1, kpi2, kpi3 </span><span class="s3">= </span><span class="s1">st.columns</span><span class="s2">(</span><span class="s7">3</span><span class="s2">)</span>
+<span class="s1">kpi1.metric</span><span class="s2">(</span><span class="s1">label</span><span class="s3">=</span><span class="s4">&quot;Temperatur&quot;</span><span class="s1">, value</span><span class="s3">=</span><span class="s1">round</span><span class="s2">(</span><span class="s1">Temp</span><span class="s2">))</span>
+<span class="s1">kpi2.metric</span><span class="s2">(</span><span class="s1">label</span><span class="s3">=</span><span class="s4">&quot;Gas i luften&quot;</span><span class="s1">, value</span><span class="s3">=</span><span class="s1">round</span><span class="s2">(</span><span class="s1">Gas</span><span class="s2">))</span>
+<span class="s1">kpi3.metric</span><span class="s2">(</span><span class="s1">label</span><span class="s3">=</span><span class="s4">&quot;Luftfugtighed&quot;</span><span class="s1">, value</span><span class="s3">=</span><span class="s1">round</span><span class="s2">(</span><span class="s1">Humidty</span><span class="s2">))</span>
+
+<span class="s1">tab1, tab2 </span><span class="s3">= </span><span class="s1">st.tabs</span><span class="s2">(</span><span class="s6">[</span><span class="s4">&quot;📈 Chart&quot;</span><span class="s1">, </span><span class="s4">&quot;🗃 Data&quot;</span><span class="s6">]</span><span class="s2">)</span>
+
+<span class="s0">with </span><span class="s1">tab1</span><span class="s3">:</span>
+   <span class="s1">st.header</span><span class="s2">(</span><span class="s4">&quot;Chart&quot;</span><span class="s2">)</span>
+   <span class="s1">st.line_chart</span><span class="s2">(</span><span class="s1">df</span><span class="s2">)</span>
+
+<span class="s0">with </span><span class="s1">tab2</span><span class="s3">:</span>
+   <span class="s1">st.header</span><span class="s2">(</span><span class="s4">&quot;data&quot;</span><span class="s2">)</span>
+   <span class="s1">st.dataframe</span><span class="s2">(</span><span class="s1">df</span><span class="s2">)</span>
+
+
+</pre>
+</body>
+</html>
